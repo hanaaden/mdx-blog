@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function CreatePostPage() {
   const [title, setTitle] = useState("");
@@ -9,6 +10,8 @@ export default function CreatePostPage() {
   const [body, setBody] = useState("");
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
+
+  const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -87,13 +90,23 @@ export default function CreatePostPage() {
           />
         </div>
 
-        <button
-          type="submit"
-          disabled={loading}
-          className="bg-green-600 text-white px-6 py-2 rounded hover:bg-green-700"
-        >
-          {loading ? "Creating..." : "Create Post"}
-        </button>
+        <div className="flex gap-4">
+          <button
+            type="submit"
+            disabled={loading}
+            className="bg-green-600 text-white px-6 py-2 rounded hover:bg-green-700"
+          >
+            {loading ? "Creating..." : "Create Post"}
+          </button>
+
+          <button
+            type="button"
+            onClick={() => router.push("/blog")}
+            className="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700"
+          >
+            Go to Blog
+          </button>
+        </div>
       </form>
 
       {message && (
